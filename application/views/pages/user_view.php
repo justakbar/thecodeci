@@ -160,5 +160,8 @@
 				} else echo '<div class = "alert alert-danger">User not found!</div>';
 			?>
 		</div>
+		<?php 
+			$this->load->view('templates/right');
+		?>
 	</div>
 </div>

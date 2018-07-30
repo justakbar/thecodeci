@@ -42,5 +42,8 @@
 			</div>
 		<?php } else echo $data; ?>
 		</div>
+		<?php 
+			$this->load->view('templates/right');
+		?>
 	</div>
 </div>

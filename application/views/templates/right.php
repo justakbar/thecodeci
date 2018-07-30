@@ -1,5 +1,8 @@
 <div class="col-md-3 metki">
 <?php
+	
+	$array = $this->right_model->get_right_side();
+
 	echo '<label>
 			Метки
 		</label>';
@@ -11,7 +14,7 @@
 	<div class = "row">
 		<div class = "col-md-12">
 			<p>
-				<a class = "badge badge-light" href = "/question/?id=<?php echo urlencode($key); ?>"><?php echo $key; ?></a> 
+				<a class = "badge badge-light" href = "<?php echo base_url(); ?>question/tag/<?php echo urlencode($key); ?>"><?php echo $key; ?></a> 
 				<span> x <?php echo $value; ?></span>
 			</p>
 		</div>

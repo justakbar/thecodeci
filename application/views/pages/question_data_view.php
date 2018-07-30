@@ -70,5 +70,8 @@
 <?php } else echo $value;?>
 			</div>
 		</div>
+		<?php 
+			$this->load->view('templates/right');
+		?>
 	</div>
 </div>

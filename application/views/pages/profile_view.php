@@ -260,5 +260,8 @@
 				</div>
 			</div>
 		</div>
+		<?php 
+			$this->load->view('templates/right');
+		?>
 	</div>
 </div>
