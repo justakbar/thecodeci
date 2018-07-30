@@ -40,7 +40,7 @@ class Question_list_model extends CI_Model {
 				$data[] = array(
 					'id' => $row['id'],
 					'zagqu' => $row['zagqu'],
-					'tags' => $row['tags'],
+					'tags' => html_entity_decode($row['tags']),
 					'answers' => $row['answers'],
 					'login' => $row['login'],
 					'dates' => $this->makeDate($row['dates']),

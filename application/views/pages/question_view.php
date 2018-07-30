@@ -10,7 +10,7 @@
 	    <div class = "row">
 	      	<div class = "col-md-5">
 	        	<p> 
-                	<small>Asked <a class = "a" href = "/user/<?php echo $value['login']; ?>"><?php echo $value['login']; ?> </a><?php echo $value['dates']; ?></small>
+                	<small>Asked <a class = "a" href = "/user/info/<?php echo $value['login']; ?>"><?php echo $value['login']; ?> </a><?php echo $value['dates']; ?></small>
                 </p>
 	       	</div>
 	       	<div class = "col-md-7">

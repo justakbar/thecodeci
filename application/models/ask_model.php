@@ -18,6 +18,7 @@ class Ask_model extends CI_Model {
 				$tags .= '<a class = "badge badge-light" href = "'.base_url().'question/tag/'. urlencode($key) . '">'. html_entity_decode($key) . ' </a> ';
 			}
 			$time = time();
+			$tags = htmlentities($tags, ENT_QUOTES);
 			$query = $this->db->query("INSERT INTO `questions` (zagqu, question, tags, answers, email, login, dates, views, viewed, view) VALUES ('$zagqu', '$tekst', '$tags', '0', '$email', '$login', '$time', '', '', '0')");
 
 			if ($query) {

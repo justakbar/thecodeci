@@ -36,6 +36,7 @@ class Ordvac_model extends CI_Model {
 	public function getOrder ($num,$offset) {
 		$data = array();
 		$qu = "visibility != 0 AND deleted != 'deleted'";
+		$this->db->order_by('id','DESC');
 		$query = $this->db->where($qu)->get('ordvac',$num,$offset);
 
 		if ($query) {
