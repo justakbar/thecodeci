@@ -13,38 +13,22 @@ class Ask extends CI_Controller {
 			show_404();
 		}
 
-		$this->load->library('form_validation');
 		$this->load->model('ask_model');
+		$this->load->helper('form');
+		$msg['tekst'] = '';
+		$msg['metki'] = '';
+		$msg['zagqu'] = '';
 
 		if (isset($_POST['send'])) {
-			$msg['tekst'] = '';
-			$msg['metki'] = '';
-			$msg['zagqu'] = '';
-			if ( $this->security->xss_clean($_POST['zagqu'],$_POST['tekst'],$_POST['metki']) == TRUE) {
+			$tekst = htmlentities($_POST['tekst'], ENT_QUOTES);
+			$zagqu = htmlentities($_POST['zagqu'], ENT_QUOTES);
+			$metki = htmlentities($_POST['metki'], ENT_QUOTES);
 
-				$this->form_validation->set_rules('zagqu', 'заголовок вопроса', 'required|min_length[1]|max_length[100]');
-				$this->form_validation->set_rules('tekst', 'текста', 'required|min_length[1]');
-				$this->form_validation->set_rules('metki', 'метки', 'required|min_length[1]|max_length[100]');
-
-				if ( $this->form_validation->run() == true ) {
-					$msg['success'] = $this->ask_model->validate($_POST['zagqu'], $_POST['tekst'], $_POST['metki'], $_SESSION['email'], $_SESSION['username']);
-					$this->load->view('templates/header');
-					$this->load->view('pages/'.$page,$msg);
-					$this->load->view('templates/footer');
-				} else {
-					$this->load->view('templates/header');
-					$this->load->view('pages/'.$page,$msg);
-					$this->load->view('templates/footer');
-				} 
-			} else {
-				$this->load->view('templates/header');
-				$this->load->view('pages/'.$page, $msg);
-				$this->load->view('templates/footer');
-			}
-		} else {
-			$this->load->view('templates/header');
-			$this->load->view('pages/'.$page);
-			$this->load->view('templates/footer');
+			if (!empty($tekst) && !empty($zagqu) && !empty($metki)) 
+				$msg['success'] = $this->ask_model->validate($zagqu, $tekst, $metki, $_SESSION['email'], $_SESSION['username']);
 		}
+		$this->load->view('templates/header');
+		$this->load->view('pages/'.$page, $msg);
+		$this->load->view('templates/footer');
 	}
 }

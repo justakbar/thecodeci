@@ -3,6 +3,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Ordvac_model extends CI_Model {
 		
+	public function viewcount ($allip, $id) {
+		$ips = explode(",", $allip);
+		$ip = $_SERVER['REMOTE_ADDR'];
+		if ( !in_array($ip, $ips)) {
+			$ip = $ip . "," . $allip;
+			$this->db->query("UPDATE ordvac SET viewip = '$ip', views = views + 1 WHERE id = '$id'");
+		}
+	}
+
 	function getPublishedDate($since) {
 		$since = time() - $since;
 
@@ -60,19 +69,18 @@ class Ordvac_model extends CI_Model {
 
 		if ($query) {
 			if ($query->num_rows() > 0) {
-				foreach ($query->result_array() as $row) {
-					$data = array(
-						'id' => $row['id'],
-						'zagqu' => $row['zagqu'],
-						'text' => html_entity_decode($row['tekst']),
-						'login' => $row['login'],
-						'full_name' => $row['full_name'],
-						'cost' => $row['tsena'],
-						/*'viewed' => $this->countViews($row['viewed'], $row['viewip'], $row['views'],$id),*/
-						'viewed' => $row['views'],
-						'published' => $this->getPublishedDate($row['published'])
-					);
-				}
+				$row = $query->row_array();
+				$this->viewcount($row['viewip'],$id);
+				$data = array(
+					'id' => $row['id'],
+					'zagqu' => $row['zagqu'],
+					'text' => html_entity_decode($row['tekst']),
+					'login' => $row['login'],
+					'full_name' => $row['full_name'],
+					'cost' => $row['tsena'],
+					'viewed' => $this->viewed($row['views']),
+					'published' => $this->getPublishedDate($row['published'])
+				);
 				return $data;
 			} else return 'Order not exist!';
 		}
@@ -92,6 +100,9 @@ class Ordvac_model extends CI_Model {
 
 		if ($domain < 1 || $domain > 4)
 			$err[] = 'Неизвестная сфера деятельности!';
+
+		if (empty($text))
+			$err[] = 'Описание заказа пусто!';
 
 		$date = time();
 		$login = $_SESSION['username'];

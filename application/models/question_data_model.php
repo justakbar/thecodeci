@@ -3,6 +3,15 @@ defined('BASEPATH') OR exit('No direct script access allowed');
 
 class Question_data_model extends CI_Model {
 
+	public function viewed ($allip, $id) {
+		$ips = explode(",", $allip);
+		$ip = $_SERVER['REMOTE_ADDR'];
+		if ( !in_array($ip, $ips)) {
+			$ip = $ip . "," . $allip;
+			$this->db->query("UPDATE questions SET views = '$ip', view = view + 1 WHERE id = '$id'");
+		}
+	}
+
 	function getAnswers ($id) {
 		$data = array();
 		$query = $this->db->query("SELECT answer, login, dates FROM answer WHERE qu_id = '$id' ORDER BY id DESC");
@@ -45,25 +54,29 @@ class Question_data_model extends CI_Model {
 		return $print;
 	}
 
+	function answersMake ($ans) {
+		return ($ans > 1) ? $ans . ' Answers' : $ans . ' Answer';
+	}
+
 	function getData ($id) {
 		$data = array();
 
 		$query = $this->db->query("SELECT * FROM questions WHERE id = $id");
 
 		if ($query) {
-			if ($query->num_rows() > 0) { 
-				foreach ($query->result_array() as $row) {
-					$data = array(
-						'id' => $row['id'],
-						'zagqu' => $row['zagqu'],
-						'question' => $row['question'],
-						'tags' => $row['tags'],
-						'answers' => $row['answers'],
-						'login' => $row['login'],
-						'dates' => $this->makeDate($row['dates']),
-						'views' => $row['view']
-					);
-				}
+			if ($query->num_rows() > 0) {
+				$row = $query->row_array();
+				$this->viewed($row['views'], $id);
+				$data = array(
+					'id' => $row['id'],
+					'zagqu' => $row['zagqu'],
+					'question' => html_entity_decode($row['question']),
+					'tags' => html_entity_decode($row['tags']),
+					'answers' => $this->answersMake($row['answers']),
+					'login' => $row['login'],
+					'dates' => $this->makeDate($row['dates']),
+					'views' => $row['view']
+				);
 			}
 			else return 'Question not exist!';
 		}
@@ -81,13 +94,9 @@ class Question_data_model extends CI_Model {
 				$this->db->query("UPDATE questions SET answers = answers + 1 WHERE id = '$id'");
 				if ($query) {
 					$query = $this->db->query("SELECT answer FROM users WHERE login = '$login'");
-
-					foreach ($query->result_array() as $row){
-						$last = $row['answer'] . $id . ',';
-					}
-
+					$row = $query->row_array();
+					$last = $row['answer'] . $id . ',';
 					$this->db->query("UPDATE users SET answer = '$last' WHERE login = '$login'");
-					return '<div class = "alert alert-success">Success</div>';
 				}
 			}
 		}

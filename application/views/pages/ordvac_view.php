@@ -31,11 +31,7 @@
 		<div class = "row">
 			<div class = "col-md-6">
 				<h6 class = "cost"> 
-					viewed: <?php echo $key['views']; ?>
-				</h6>
-
-				<h6 class = "cost">
-					<?php echo $key['published']; ?>
+					<?php echo $key['views'] . htmlspecialchars(" • ") . $key['published']; ?>
 				</h6>
 			</div>
 		</div>

@@ -19,7 +19,7 @@ class Ask_model extends CI_Model {
 			}
 			$time = time();
 			$tags = htmlentities($tags, ENT_QUOTES);
-			$query = $this->db->query("INSERT INTO `questions` (zagqu, question, tags, answers, email, login, dates, views, viewed, view) VALUES ('$zagqu', '$tekst', '$tags', '0', '$email', '$login', '$time', '', '', '0')");
+			$query = $this->db->query("INSERT INTO `questions` (zagqu, question, tags, answers, email, login, dates, views, view) VALUES ('$zagqu', '$tekst', '$tags', '0', '$email', '$login', '$time', '', '0')");
 
 			if ($query) {
 
@@ -27,18 +27,17 @@ class Ask_model extends CI_Model {
 
 				$query = $this->db->get('metki');
 
-				foreach ($query->result_array() as $row) {
-					$value = $row['value'];
-				}
+				$row = $query->row_array();
+				$value = $row['value'];
 				$array = json_decode($value,true);
 				$tag = array_count_values($tag);
 
 	  			foreach ($tag as $key => $value) {
-					if (isset($array[$key])) {
+					if (isset($array[$key]))
 						$array[$key] = $array[$key] + $value;
-					}
 					else $array[$key] = 1;
 				}
+				
 				arsort($array);
 				$array = json_encode($array, JSON_PRETTY_PRINT);
 				$this->db->query("UPDATE metki SET value = '$array' WHERE id = '1'");

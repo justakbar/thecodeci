@@ -30,7 +30,7 @@
 			    				</p>	
 			    				<p>
 			    					<small>
-			    					Не указывайте контактные данные в описании заказа, для итого использовайте <a href = "/profile">профиль</a> 
+			    					Не указывайте контактные данные в описании заказа, для итого использовайте <a href = "<?php echo base_url(); ?>profile">профиль</a> 
 			    					</small>
 									<fieldset>
 										<textarea id="noise" name="noise" class="widgEditor nothing"><?php echo set_value('noise'); ?></textarea>

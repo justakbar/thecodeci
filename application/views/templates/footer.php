@@ -8,12 +8,12 @@
     </div>
 </div>
 <script src="/resource/js/jquery.min.js"></script>
+<script src="/resource/js/bootstrap.min.js"></script>
 <script src="/resource/editor/site/assets/scripts/module.js"></script>
 <script src="/resource/editor/site/assets/scripts/uploader.js"></script>
 <script src="/resource/editor/site/assets/scripts/hotkeys.js"></script>
 <script src="/resource/editor/site/assets/scripts/simditor.js"></script>
 <script src="/resource/editor/site/assets/scripts/page-demo.js"></script>
-<script src="/resource/js/bootstrap.min.js"></script>
 
 </body>
 </html>

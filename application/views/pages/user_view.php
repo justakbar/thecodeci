@@ -3,9 +3,9 @@
 			<div class="col-md-9">
 				<?php 
 					$value = $data;
-					$value['phonenumber'] = (!empty($value['phonenumber'])) ? '+' . $value['phonenumber'] : $value['phonenumber'];
-					$value['messenger_number'] = (!empty($value['messenger_number'])) ? '+' . $value['messenger_number'] : $value['messenger_number'];
 					if ($value != false) {
+						$value['phonenumber'] = (!empty($value['phonenumber'])) ? '+' . $value['phonenumber'] : $value['phonenumber'];
+						$value['messenger_number'] = (!empty($value['messenger_number'])) ? '+' . $value['messenger_number'] : $value['messenger_number'];
 				?>
 				<div class = "row row border border-white padding rounded">
 					<div class = "col-md-3">
@@ -53,21 +53,21 @@
 						</table>
 					</div>
 				</div>
-			 <ul class="nav nav-tabs" id="myTab" role="tablist">
-				<li class="nav-item">
-					<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Вопросы</a>
-				</li>
-				<li class="nav-item">
-					<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Заказы</a>
-				</li>
-			</ul>
-			<div class="tab-content" id="myTabContent">
-				<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
+				<ul class="nav nav-tabs" id="myTab" role="tablist">
+					<li class="nav-item">
+						<a class="nav-link active" id="home-tab" data-toggle="tab" href="#home" role="tab" aria-controls="home" aria-selected="true">Вопросы</a>
+					</li>
+					<li class="nav-item">
+						<a class="nav-link" id="profile-tab" data-toggle="tab" href="#profile" role="tab" aria-controls="profile" aria-selected="false">Заказы</a>
+					</li>
+				</ul>
+				<div class="tab-content" id="myTabContent">
+					<div class="tab-pane fade show active" id="home" role="tabpanel" aria-labelledby="home-tab">
 					<?php 
 
-					if ($question != false) {
+						if ($question != false) {
 						foreach ($question as $value) {
-				?>
+					?>
 					<div class = "row blockquote">
 						<div class = "col-md-8">
 						   	<a href = "<?php echo base_url(); ?>question/num/<?php echo $value['id']; ?>" class = "questionlink"><?php echo $value['zagqu']; ?></a>

@@ -5,7 +5,6 @@
       			<?php 
       				if (isset($success)) 
       					echo $success;
-      				echo form_error('zagqu') . form_error('tekst') . form_error('metki');
       			?>
         		<form action = "<?php echo base_url(); ?>ask" method="post">
 	        		<p>

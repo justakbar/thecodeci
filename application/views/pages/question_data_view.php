@@ -23,7 +23,7 @@
 	<div class = "col-md-12">
 		<h4>Question</h4>
 		<div class = "ques">
-			<?php echo html_entity_decode($value['question']); ?>
+			<?php echo $value['question']; ?>
 		</div>
 		<div class = "row">
 			<div class = "col-md-12" align = "right">
@@ -34,7 +34,7 @@
 </div>
 <div class = "row">
 	<div class = "col-md-12">
-		<h5><?php echo $value['answers']; ?> Answers</h5>
+		<h5><?php echo $value['answers']; ?></h5>
 	</div>
 </div>
 <hr/>
@@ -61,7 +61,7 @@
 	}
 ?>
 <h3>Ответить</h3>
-<form action="<?php echo base_url() . 'question/num/' .$value['id']; ?>" method="post">
+<form action="<?php echo base_url() . 'question/num/' . $value['id']; ?>" method="post">
     <section id="page-demo">
         <textarea id="txt-content" name="answertext" data-autosave="editor-content" required></textarea>
     </section>

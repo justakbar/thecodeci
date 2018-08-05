@@ -40,7 +40,7 @@ class Question extends CI_Controller {
                 $data['success'] = $this->$page->answerToQuestion($text);
             }
 
-            if (isset($id)) {
+            if (isset($id) && is_numeric($id)) {
                 
                     $data['data'] = $this->$page->getData ($id);
                     $data['answer'] = $this->$page->getAnswers ($id);

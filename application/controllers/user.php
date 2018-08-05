@@ -14,12 +14,18 @@ class User extends CI_Controller {
         $this->load->model($page);
 
         $data['data'] = $this->$page->getUser($id);
-        $data['question'] = $this->$page->getQuestion($id);
-        $data['order'] = $this->$page->getOrders($id);
-        
-        $this->load->view('templates/header');
-        $this->load->view('pages/user_view', $data);
-        $this->load->view('templates/footer');
+        if ($data['data'] != false){
+            $data['question'] = $this->$page->getQuestion($id);
+            $data['order'] = $this->$page->getOrders($id);
+            $this->load->view('templates/header');
+            $this->load->view('pages/user_view', $data);
+            $this->load->view('templates/footer');
+        } else {
+            $this->load->view('templates/header');
+            $this->load->view('pages/user_view',$data);
+            $this->load->view('templates/footer');
+        }
+
 	}
 }
 ?>
