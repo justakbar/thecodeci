@@ -30,7 +30,7 @@ jQuery(function($){
 		});
 	});
 
-	$('#delete').click(function() {
+	/*$('#delete').click(function() {
 		var a = $(this).attr('name');
 		var length = a.length;
 		if (a == 'delete_' + a[length-1]) {
@@ -48,5 +48,30 @@ jQuery(function($){
 		})
 
 
+	});*/
+
+	$('#voteup').click(function () {
+		$.ajax({
+			url: location.href,
+			type: 'post',
+			data: {'query': 'voteup'},
+			success: function () {
+				$('#voteup').attr('disabled','disabled');
+				$('#votedown').removeAttr('disabled');
+				$('#rating').text(parseInt($('#rating').text()) + 1);
+			}
+		})
+	});
+	$('#votedown').click(function () {
+		$.ajax({
+			url: location.href,
+			type: 'post',
+			data: {'query': 'votedown'},
+			success: function () {
+				$('#votedown').attr('disabled','disabled');
+				$('#voteup').removeAttr('disabled');
+				$('#rating').text(parseInt($('#rating').text()) - 1);
+			}
+		})
 	});
 });

@@ -19,13 +19,13 @@
 	?>
 	<div class = "border border-white padding-order">
 		<div class = "row">
-			<div class = "col-md-9">
+			<div class = "col-md-10">
 				<h4>
 					<a class = "questionlink" href = "<?php echo base_url(); ?>ordvac/order/<?php echo $key['id'] ?>"><?php echo $key['zagqu']; ?></a>
 				</h4> 
 			</div>
-			<div class = "col-md-3">
-				<center><span class = "cost"><?php echo $key['cost']; ?> </span></center>
+			<div class = "col-md-2">
+				<span class = "cost"><?php echo $key['cost']; ?> </span>
 			</div>
 		</div>
 		<div class = "row">

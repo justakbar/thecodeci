@@ -3,24 +3,22 @@
 	
 	$array = $this->right_model->get_right_side();
 
-	echo '<label>
+	echo '
+	<div class = "card">
+		<div class = "card-header">
 			Метки
-		</label>';
+		</div>';
 	$i = 0;
 	if (!empty($array)) {
 		foreach ($array as $key => $value) {
 			if(++$i == 11) break;
 ?>
-	<div class = "row">
-		<div class = "col-md-12">
-			<p>
-				<a class = "badge badge-light" href = "<?php echo base_url(); ?>question/tag/<?php echo urlencode($key); ?>"><?php echo $key; ?></a> 
-				<span> x <?php echo $value; ?></span>
-			</p>
-		</div>
+	<div class = "padding">
+		<a class = "badge badge-light" href = "<?php echo base_url(); ?>question/tag/<?php echo urlencode($key); ?>"><?php echo $key; ?></a> 
+		<span> x <?php echo $value; ?></span>
 	</div>
-<?php 
-	}
-}
-?>
+	<?php 
+		}
+	} echo '</div>';
+	?>
 </div>

@@ -28,12 +28,46 @@ class Search_model extends CI_Model {
 		return $print;
 	}
 
-	public function search ($word,$num,$offset) {
-		$data = array();
-		$search = "zagqu LIKE '%$word%' OR question LIKE '%$word%' OR tags LIKE '%$word%'";
+	public function makePagination ($id,$all,$type) {
+		$text = '';
+		$all = ceil($all / 10);
+		$first = (($id - 4) > 1) ? $id - 5 : 1;
+		$last = (($id + 4) < $all) ? $id + 5 : $all;
 
-		$this->db->order_by('id','DESC');
-		$query = $this->db->where($search)->get('questions',$num, $offset);
+		if ($first > 1 && $first != $id) {
+			$text .= '<a href="' . base_url() . 'search/'.$type.'1">1</a> <span style ="padding: 8px;">...</span>';
+			$first++;
+		}
+		while ($first < $last) {
+
+			if ($first != $id) {
+				$text .= '<a href="' . base_url() . 'search/'.$type . $first . '">' . $first . '</a>';
+			} else {
+				$text .= '<span class = "actived">' . $first . '</span>';
+			}
+			$first++;
+		}
+		if ($all - $last > 0) {
+			$text .= '<span style ="padding: 8px;">...</span>';
+		}
+
+		if ($all != $id) {
+			$text .= '<a href="' . base_url() . 'search/' . $type . $all . '">' . $all . '</a>';
+		} else {
+			$text .= '<span class = "actived">' . $all . '</span>';
+		}
+		return $text;
+	}
+
+	public function countSearchResult ($word) {
+		$query = $this->db->query("SELECT * FROM questions WHERE zagqu LIKE '%$word%' OR question LIKE '%$word%' OR tags LIKE '%$word%'");
+		return $query->num_rows();
+	}
+
+	public function search ($word,$num) {
+		$data = array();
+
+		$query = $this->db->query("SELECT * FROM questions WHERE zagqu LIKE '%$word%' OR question LIKE '%$word%' OR tags LIKE '%$word%' ORDER BY id DESC LIMIT $num, 10");
 
 		if ($query) {
 			foreach ($query->result_array() as $row) {

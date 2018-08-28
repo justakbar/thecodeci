@@ -39,31 +39,31 @@
             
             <div class="collapse navbar-collapse" id="navbarText">
               <ul class="navbar-nav mr-auto">
-                <li class = "nav-item"><a class = "nav-link" href="<?php echo base_url(); ?>question/page">Вопросы</a></li>
+                <li class = "nav-item"><a class = "nav-link" href="<?php echo base_url(); ?>question">Вопросы</a></li>
                 <li class = "nav-item"><a class = "nav-link" href="<?php echo base_url(); ?>ordvac/page">Заказы</a></li>
                 <?php if(isset($_COOKIE['hash']) && isset($_COOKIE['cookie']) && isset($_SESSION['logged_in'])) { ?>
 
-                    <li class = "nav-item"><a class = "nav-link" href="/profile">Профиль</a></li>
+                    <li class = "nav-item"><a class = "nav-link" href="<?php echo base_url() ?>/profile">Профиль</a></li>
 
                 <?php } ?>
               </ul>
 
 
               <form class="form-inline my-2 my-lg-0 mx-auto" action = '<?php echo base_url(); ?>search/' method="get">
-                <input class="form-control mr-sm-2" type="search" name = "qu" placeholder="Search" aria-label="Search">
+                <input class="form-control mr-sm-2" type="search" name = "qu" value = "<?php echo isset($_GET['qu'])?$_GET['qu']:''; ?>" placeholder="Search" aria-label="Search">
               </form>
 
 
 
               <?php if(!isset($_COOKIE['hash']) || !isset($_COOKIE['cookie']) || !isset($_SESSION['logged_in'])) { ?>
               <div class="navbar-text">
-                  <a class="btn btn-info" href="/login">Войти</a>
-                  <a class="btn btn-success" href="/registration">Регистрация</a>
+                  <a class="btn btn-info" href="<?php echo base_url() ?>login">Войти</a>
+                  <a class="btn btn-success" href="<?php echo base_url() ?>/registration">Регистрация</a>
               </div>
               <?php } else if(isset($_COOKIE['hash']) && isset($_COOKIE['cookie']) &&
                 $_COOKIE['hash'] == $_SESSION['hash'] && $_COOKIE['cookie'] == $_SESSION['code']) { ?>
                   <div class="navbar-text">
-                      <a class="btn btn-secondary" href="/ask">Задать вопрос</a>
+                      <a class="btn btn-secondary" href="<?php echo base_url() ?>/ask">Задать вопрос</a>
                   </div>
                   <?php } ?>
             </div>

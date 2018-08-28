@@ -7,6 +7,15 @@
 				print_r($data);
 				echo '</pre';*/
 				if (is_array($data)) {
+					if ($all > 1)
+						$all = $all . ' results';
+					else $all = $all . ' result'; 
+					echo '
+						<div clas = "row">
+							<div class = "col-12">
+								<h4> ' . $all .'</h4>
+							</div>
+						</div><hr/>';
 					foreach ($data as $value) {
 			?>
 				<div class = "row blockquote">
@@ -19,7 +28,7 @@
 								</p>
 							</div>
 							<div class = "col-md-7">
-								<?php echo $value['tags']; ?>
+								<?php echo html_entity_decode($value['tags']); ?>
 							</div>
 						</div>
 					</div>
@@ -37,7 +46,7 @@
 					</div>
 				</div>
 			<?php
-					} echo $this->pagination->create_links();
+					} echo '<div class = "pagination">' . $pagination . '</div>';
 				} else echo 'Ничего не найдено!';
 			?>
 			</div>

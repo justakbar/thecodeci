@@ -19,8 +19,16 @@
 	</div>
 </div>
 <hr/>
+<small>All votes <?php echo $value['allvotes'];?></small>
 <div class = "row">
-	<div class = "col-md-12">
+	<div class = "col-1">
+		<center>
+			<button class = "btn btn-light" id = "voteup" title = "This question is useful" <?php echo $value['voteDis'][0];?>><i class = "fas fa-chevron-up"></i></button>
+			<h4 id = "rating"><?php echo $value['votes']; ?></h4>
+			<button class = "btn btn-light" id = "votedown" title = "This question is not useful" <?php echo $value['voteDis'][1];?>><i class = "fas fa-chevron-down"></i></button>
+		</center>
+	</div>
+	<div class = "col-11">
 		<h4>Question</h4>
 		<div class = "ques">
 			<?php echo $value['question']; ?>
@@ -32,6 +40,7 @@
 		</div>
 	</div>
 </div>
+<hr>
 <div class = "row">
 	<div class = "col-md-12">
 		<h5><?php echo $value['answers']; ?></h5>
@@ -43,16 +52,28 @@
 		foreach ($answer as $key => $val) {
 ?>
 	<div class = "row blockquote">
-		<div class = "col-md-2 border-right">
-			<span style = "font-size: 11pt;">Ответил(а)</span>
-			<small>
-				<a class = "questionlink" href = "<?php echo base_url(); ?>user/info/<?php echo $val['login']; ?>"><?php echo $val['login']; ?></a>
-			</small>
-			<br/>
-			<small> <?php echo $val['dates']; ?></small>
-		</div>
-		<div class = "col-md-10">
+		<!-- <div class = "col-1 border-right">
+			<center>
+				<button class = "btn btn-light" id = "voteup" title = "This question is useful" <?php echo $value['voteDis'][0];?>><i class = "fas fa-chevron-up"></i></button>
+				<h4 id = "rating"><?php echo $value['votes']; ?></h4>
+				<button class = "btn btn-light" id = "votedown" title = "This question is not useful" <?php echo $value['voteDis'][1];?>><i class = "fas fa-chevron-down"></i></button>
+			</center>
+		</div> -->
+		<div class = "col-md-12">
 			<?php echo $val['answer']; ?>
+			<div class = "row">
+				<div class = "col-md-4">
+				</div>
+				<div class = "col-md-6">
+				</div>
+				<div class = "col-2">
+					<small>
+						Ответил(а)
+						<a class = "questionlink" href = "<?php echo base_url(); ?>user/info/<?php echo $val['login']; ?>"><?php echo $val['login']; ?></a>
+						<?php echo '<br/>'.$val['dates']; ?>
+					</small>
+				</div>
+			</div>
 		</div>
 	</div>
 	<hr/>

@@ -161,7 +161,7 @@ class Profile_model extends CI_Model {
 			
 			if ($messenger != 'Telegram' && $messenger != 'WhatsApp')
 				$error[] = '<div class = "alert alert-danger">WhatsApp или Telegram</div>';
-		}
+		} else $messenger = '';
 
 		if(count($error) == 0)
 		{

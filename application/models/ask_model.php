@@ -19,7 +19,7 @@ class Ask_model extends CI_Model {
 			}
 			$time = time();
 			$tags = htmlentities($tags, ENT_QUOTES);
-			$query = $this->db->query("INSERT INTO `questions` (zagqu, question, tags, answers, email, login, dates, views, view) VALUES ('$zagqu', '$tekst', '$tags', '0', '$email', '$login', '$time', '', '0')");
+			$query = $this->db->query("INSERT INTO `questions` (zagqu, question, tags, metki, answers, email, login, dates, views, view) VALUES ('$zagqu', '$tekst', '$tags', '$metki', '0', '$email', '$login', '$time', '', '0')");
 
 			if ($query) {
 

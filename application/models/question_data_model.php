@@ -12,6 +12,42 @@ class Question_data_model extends CI_Model {
 		}
 	}
 
+	function vote ($id, $type) {
+
+		$query = $this->db->query("SELECT voteplus,voteminus FROM questions WHERE id = '$id'");
+
+        if ($query->num_rows()) {
+            $row = $query->row_array();
+
+            $userId = $_SESSION['id'];
+            $votePlus = explode(",", $row['voteplus']);
+            $voteMinus = explode(",", $row['voteminus']);
+
+            if ($type == 'voteup') {
+            	if (!in_array($userId, $votePlus)) {
+
+            		$newVotedPlus = $userId . "," . $row['voteplus'];
+            		$newVotedMinus = $row['voteminus'];
+
+            		if (in_array($userId, $voteMinus)) {
+            			$newVotedMinus = str_replace($userId . ",", '', $row['voteminus']);
+	            	}
+	               	$query = $this->db->query("UPDATE questions SET voteplus = '$newVotedPlus', voteminus = '$newVotedMinus', allvotes = allvotes + 1, votes = votes + 1 WHERE id = '$id'");
+            	}
+            } else {
+            	if (!in_array($userId, $voteMinus)) {
+            		$newVotedMinus= $userId . "," . $row['voteminus'];
+            		$newVotedPlus = $row['voteplus'];
+
+            		if (in_array($userId, $votePlus)) {
+            			$newVotedPlus = str_replace($userId . ",", '', $row['voteplus']);
+	            	}
+	               	$query = $this->db->query("UPDATE questions SET voteplus = '$newVotedPlus', voteminus = '$newVotedMinus', allvotes = allvotes + 1, votes = votes - 1 WHERE id = '$id'");
+            	}
+            }
+        }
+	}
+
 	function getAnswers ($id) {
 		$data = array();
 		$query = $this->db->query("SELECT answer, login, dates FROM answer WHERE qu_id = '$id' ORDER BY id DESC");
@@ -58,6 +94,21 @@ class Question_data_model extends CI_Model {
 		return ($ans > 1) ? $ans . ' Answers' : $ans . ' Answer';
 	}
 
+	function checkvote ($voteMinus,$votePlus) {
+		$voteMinus = explode(",", $voteMinus);
+		$votePlus = explode(",", $votePlus);
+
+		if (isset($_SESSION['id']))
+			$userId = $_SESSION['id'];
+		else return array('','');
+
+		if (in_array($userId, $voteMinus)) {
+			return array('', 'disabled');
+		} elseif (in_array($userId, $votePlus)) {
+			return array('disabled', '');
+		}
+	}
+
 	function getData ($id) {
 		$data = array();
 
@@ -75,7 +126,10 @@ class Question_data_model extends CI_Model {
 					'answers' => $this->answersMake($row['answers']),
 					'login' => $row['login'],
 					'dates' => $this->makeDate($row['dates']),
-					'views' => $row['view']
+					'views' => $row['view'],
+					'voteDis' => (isset($_SESSION['logged_in']) && $_SESSION['logged_in'] == 1) ? $this->checkvote($row['voteminus'],$row['voteplus']) : array('',''),
+					'votes' => $row['votes'],
+					'allvotes' => $row['allvotes']
 				);
 			}
 			else return 'Question not exist!';
